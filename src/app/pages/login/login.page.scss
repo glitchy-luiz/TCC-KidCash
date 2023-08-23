@@ -1,0 +1,38 @@
+.corpo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20%;
+}
+.senha{
+    max-width: 150px;
+}
+.img-logo{
+    margin-left: 35%;
+    margin-top: 20%;
+    max-width: 80px;
+    max-height: 80px;
+}
+.text-cad{
+    font-size: 12px;
+    color: darkgrey;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.botao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.infosenha{
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+}
+.infos{
+    margin: 8px;
+}
+.esqueci{
+    color: darkgreen;
+}

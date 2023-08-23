@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">cadastro</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-img class="img-logo"
+  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+  alt="logo"
+  ></ion-img>
+  <div class="corpo">
+    <div>
+      <ion-item>
+        <ion-input class="senha" placeholder="Nome" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input class="senha" placeholder="Email" value=""></ion-input>
+      </ion-item>    
+    <ion-item>
+      <ion-input class="senha" placeholder="Senha" type="password" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input class="senha" placeholder="Confirmar senha" type="password" value=""></ion-input>
+    </ion-item>
+    <p class="text-cad" [routerLink]="['/home']" routerLinkActive="router-link-active">Voltar ao login</p>
+    <div class="botao">
+    <ion-button fill="outline" [routerLink]="['/home']">Salvar</ion-button> 
+    </div>
+    </div>
+  
+  </div>
+
+
+</ion-content>
