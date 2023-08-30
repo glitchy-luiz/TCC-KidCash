@@ -21,10 +21,27 @@
     max-height: 113px;
 }
 .text-cad{
-    font-size: 12px;
-    color: darkgrey;
+    font-size: 15px;
+    color: #000000;
     text-decoration: underline;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    text-decoration: none;
+}
+.text-cad2{
+    font-size: 15px;
+    color:crimson;
+    text-decoration: underline;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.cad{
+    display: flex;
+    justify-content: center;
 }
 .botao{
     display: flex;

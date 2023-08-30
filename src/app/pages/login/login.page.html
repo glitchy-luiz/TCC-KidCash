@@ -27,14 +27,18 @@
       <br />
       <div class="infosenha">
         <ion-checkbox labelPlacement="end" class="infos">lembrar senha</ion-checkbox>
-        <p class="infos esqueci">Esqueci minha senha</p>
+        <p class="infos esqueci" [routerLink]="['/recsenha']" routerLinkActive="router-link-active">Esqueci minha senha</p>
       </div>
       <div class="botao">
         <ion-button fill="outline" [routerLink]="['/tipofamilia']" color="success">Entrar</ion-button>
       </div>
       <div class="separator"></div>
-      <p class="text-cad" [routerLink]="['/cadastro']" routerLinkActive="router-link-active">Não possui uma conta?
-        Cadastre-se</p>
+      <div class="cad">
+      <p class="text-cad" [routerLink]="['/cadastro']" routerLinkActive="router-link-active">
+        Não tem uma conta?</p>
+        <p class="text-cad2" [routerLink]="['/cadastro']" routerLinkActive="router-link-active">
+          Cadastre-se</p>
+        </div>
     </div>
 
   </div>
