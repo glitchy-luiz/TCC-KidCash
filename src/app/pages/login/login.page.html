@@ -19,8 +19,27 @@
     <div class="corpo">
       <div>
 
+        <form [formGroup]="credentials" (ngSubmit)="login()">
 
           <ion-item>
+            <ion-input type="email" class="senha" placeholder="Email" formControlName="email"></ion-input>
+            <!-- <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors">Email</ion-note> -->
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="password" class="senha" placeholder="Senha" formControlName="password"></ion-input>
+            <!-- <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">Senha precisa de 6 caracteres</ion-note> -->
+          </ion-item>
+
+          <div class="botao">
+            <ion-button (click)="login()" fill="outline" color="success">Entrar</ion-button>
+          </div>
+
+        </form>
+
+
+
+          <!-- <ion-item>
             <ion-input [(ngModel)]="email" type="email" class="senha" placeholder="Email" value=""></ion-input>
           </ion-item>
           <ion-item>
@@ -34,7 +53,7 @@
           </div>
           <div class="botao">
             <ion-button fill="outline" (click)="entrar" [routerLink]="['/tipofamilia']" color="success" type="submit">Entrar</ion-button>
-          </div>
+          </div> -->
 
 
         <div class="separator"></div>

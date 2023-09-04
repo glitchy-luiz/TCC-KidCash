@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {
+  redirectUnauthorizedTo,
+  redirectLoggedInTo,
+  canActivate,
+} from '@angular/fire/auth-guard'
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([''])
+const redirectLoggedInToHome = () => redirectLoggedInTo(['tipofamilia'])
 
 const routes: Routes = [
   {
@@ -9,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    ...canActivate(redirectLoggedInToHome)
   },
   {
     path: 'metas',
@@ -37,7 +46,8 @@ const routes: Routes = [
   },
   {
     path: 'tipofamilia',
-    loadChildren: () => import('./pages/tipofamilia/tipofamilia.module').then( m => m.TipofamiliaPageModule)
+    loadChildren: () => import('./pages/tipofamilia/tipofamilia.module').then( m => m.TipofamiliaPageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
   },
   {
     path: 'iniciokid',

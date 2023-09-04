@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -7,33 +11,75 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
   styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
+  credentials: FormGroup = this.fb.group({})
 
-  constructor() { }
-  nome: any;
-  password: any;
-  email: any;
-  senhaconf: any;
 
-  ngOnInit() {
+  constructor(
+    // public credentials: FormGroup,
+    private fb: FormBuilder,
+    private loadingController: LoadingController,
+    private alertController: AlertController,
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  // get nome(){
+  //   return this.credentials.get('nome')
+  // }
+
+  get email(){
+    return this.credentials.get('email');
   }
 
-  cadastrar(){
-    if(this.password == this.senhaconf){
-  const auth = getAuth();
-  createUserWithEmailAndPassword(auth, this.email, this.password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
-}
+  get password(){
+    return this.credentials.get('password');
+  }
+
+  ngOnInit() {
+    this.credentials = this.fb.group({
+      // nome: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
 
-}
+  async register() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    const user = await this.authService.register(this.credentials.value);
+    await loading.dismiss();
+
+    if (user) {
+      this.router.navigateByUrl('/home', { replaceUrl: true});
+    } else {
+      this.showAlert('Registro falhou', 'tente novamente!');
+    }
+  }
+
+  async login() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    const user = await this.authService.login(this.credentials.value);
+    await loading.dismiss();
+
+    if (user) {
+      this.router.navigateByUrl('/home', { replaceUrl: true});
+    } else {
+      this.showAlert('Login falhou', 'tente novamente!');
+    }
+  }
+
+  async showAlert(header: string, message: string){
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['ok'],
+    });
+    await alert.present();
+  }
+
 
 }
