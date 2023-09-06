@@ -1,60 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validator, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AlertController, LoadingController } from "@ionic/angular";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
-  selector: 'app-cadastro',
-  templateUrl: './cadastro.page.html',
-  styleUrls: ['./cadastro.page.scss'],
+  selector: "app-cadastro",
+  templateUrl: "./cadastro.page.html",
+  styleUrls: ["./cadastro.page.scss"],
 })
 export class CadastroPage implements OnInit {
-  credentials: FormGroup = this.fb.group({})
-
+  credentials: FormGroup = this.fb.group({});
 
   constructor(
-    // public credentials: FormGroup,
     private fb: FormBuilder,
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   // get nome(){
   //   return this.credentials.get('nome')
   // }
-
-  get email(){
-    return this.credentials.get('email');
+  get confsenha() {
+    return this.credentials.get("confsenha");
   }
 
-  get password(){
-    return this.credentials.get('password');
+  get email() {
+    return this.credentials.get("email");
+  }
+
+  get password() {
+    return this.credentials.get("password");
   }
 
   ngOnInit() {
     this.credentials = this.fb.group({
       // nome: ['', [Validators.required, Validators.email]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required, Validators.minLength(6)]],
+      confsenha: ["", [Validators.required, Validators.minLength(6)]],
     });
   }
 
-
   async register() {
-    const loading = await this.loadingController.create();
-    await loading.present();
+    if (this.password?.value === this.confsenha?.value) {
+      const loading = await this.loadingController.create();
+      await loading.present();
 
-    const user = await this.authService.register(this.credentials.value);
-    await loading.dismiss();
+      const user = await this.authService.register(this.credentials.value);
+      await loading.dismiss();
 
-    if (user) {
-      this.router.navigateByUrl('/home', { replaceUrl: true});
+      if (user) {
+        this.router.navigateByUrl("/home", { replaceUrl: true });
+      } else {
+        this.showAlert("Registro falhou", "tente novamente!");
+      }
     } else {
-      this.showAlert('Registro falhou', 'tente novamente!');
+      this.showAlert("Erro nas senhas", "as senhas não são iguais");
     }
   }
 
@@ -66,20 +71,18 @@ export class CadastroPage implements OnInit {
     await loading.dismiss();
 
     if (user) {
-      this.router.navigateByUrl('/home', { replaceUrl: true});
+      this.router.navigateByUrl("/home", { replaceUrl: true });
     } else {
-      this.showAlert('Login falhou', 'tente novamente!');
+      this.showAlert("Login falhou", "tente novamente!");
     }
   }
 
-  async showAlert(header: string, message: string){
+  async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header,
       message,
-      buttons: ['ok'],
+      buttons: ["ok"],
     });
     await alert.present();
   }
-
-
 }

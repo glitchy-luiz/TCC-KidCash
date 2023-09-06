@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  firebase: {
+  firebaseConfig: {
     apiKey: "AIzaSyDBuEXy4Iu6SmbHicILRJvaXZGsJs7QpZY",
     authDomain: "db-kidcash.firebaseapp.com",
     databaseURL: "https://db-kidcash-default-rtdb.firebaseio.com",

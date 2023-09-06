@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-  provideFirebaseApp(() => initializeApp(environment.firebase)),
+  provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
   provideAuth(() => getAuth()),
   provideFirestore(() => getFirestore()),
   provideStorage(() => getStorage())
