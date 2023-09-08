@@ -1,9 +1,13 @@
+import { FirestoreModule } from '@angular/fire/firestore';
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validator, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AlertController, LoadingController } from "@ionic/angular";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthService } from "src/app/services/auth.service";
+import { provideFirestore, getFirestore } from '@angular/fire/firestore'
+// import { Dadosextra } from 'src/app/models/dadosextra';
+import { DadosextraService } from 'src/app/services/dadosextra.service';
 
 @Component({
   selector: "app-cadastro",
@@ -14,16 +18,18 @@ export class CadastroPage implements OnInit {
   credentials: FormGroup = this.fb.group({});
 
   constructor(
+    private afs: FirestoreModule,
     private fb: FormBuilder,
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dados: DadosextraService
   ) {}
 
-  // get nome(){
-  //   return this.credentials.get('nome')
-  // }
+  get nome(){
+    return this.credentials.get('nome')
+  }
   get confsenha() {
     return this.credentials.get("confsenha");
   }
@@ -38,11 +44,17 @@ export class CadastroPage implements OnInit {
 
   ngOnInit() {
     this.credentials = this.fb.group({
-      // nome: ['', [Validators.required, Validators.email]],
+      nome: [''],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
       confsenha: ["", [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  async salvar(){
+    if (this.password?.value === this.confsenha?.value) {
+    const dadouser = await this.dados.salvar(this.credentials.value);
+    }
   }
 
   async register() {

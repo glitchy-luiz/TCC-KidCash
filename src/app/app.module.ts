@@ -12,6 +12,8 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore'
 import { provideStorage, getStorage } from '@angular/fire/storage'
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
+// import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +21,8 @@ import { environment } from 'src/environments/environment';
   provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
   provideAuth(() => getAuth()),
   provideFirestore(() => getFirestore()),
-  provideStorage(() => getStorage())
+  provideStorage(() => getStorage()),
+  // AngularFirestoreModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

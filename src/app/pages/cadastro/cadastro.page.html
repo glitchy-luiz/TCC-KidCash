@@ -14,9 +14,9 @@
 
         <form [formGroup]="credentials" (ngSubmit)="login()">
 
-          <!-- <ion-item>
+          <ion-item>
             <ion-input type="nome" class="senha" placeholder="Nome" formControlName="nome"></ion-input>
-          </ion-item> -->
+          </ion-item>
 
           <ion-item>
             <ion-input type="email" class="senha" placeholder="Email" formControlName="email"></ion-input>
@@ -31,7 +31,7 @@
           </ion-item>
 
           <div class="botao">
-            <ion-button (click)="register()" fill="outline" color="success">Salvar</ion-button>
+            <ion-button (click)="register(); salvar()" fill="outline" color="success">Salvar</ion-button>
           </div>
 
         </form>
